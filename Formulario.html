@@ -1,0 +1,283 @@
+<html>
+	<head>
+		<link href="style.css" rel="stylesheet" type="text/css" />
+		<script>
+		bandera=0
+		
+		function nomMayus()
+		{
+			asd=document.frmContacto.txtNombre.value;
+			document.frmContacto.txtNombre.value=asd.toUpperCase();			
+		}	
+		
+		function valNombre()
+		{
+			asd=document.frmContacto.txtNombre.value;
+			if(asd.length==0)
+			{
+				alert("Nombre no ingresado.")
+				document.frmContacto.txtNombre.focus()
+				bandera=1
+				return
+			}
+			else
+			{
+				bandera=0
+			}
+		}
+	
+		function apeMayus()
+		{
+			asd=document.frmContacto.txtApellido.value;
+			document.frmContacto.txtApellido.value=asd.toUpperCase();
+		}		
+		
+		function valApellido()
+		{
+			asd=document.frmContacto.txtApellido.value;
+			if(asd.length==0)
+			{
+				alert("Apellido no ingresado.")
+				document.frmContacto.txtApellido.focus()
+				bandera=1
+			}
+		}
+	
+		function verMail()
+		{
+			arroba=0
+			punto=0
+			pos=0
+			qwe=document.frmContacto.txtMail.value;
+			if(qwe.length>0)
+			{
+				for(x=0; x<qwe.length; x++)
+				{
+					if(qwe.charAt(x)=="@")
+					{
+						arroba=arroba+1
+						pos=x
+						//alert("@ verificado")
+					}
+				}
+				for(y=pos+1; y<qwe.length; y++)
+				{
+					if(qwe.charAt(y)==".")
+					{
+						punto=punto+1
+						//alert("@ y . validos")
+					}
+				}
+				if(arroba==0)
+				{
+					alert("Mail invalido. No hay arroba")
+					document.frmContacto.txtMail.focus()
+					bandera=1
+					return
+				}
+				if(arroba>1)
+				{
+					alert("Mail invalido. Hay mas de un @.")
+					document.frmContacto.txtMail.focus()
+				}
+				if(punto==0)
+				{
+					alert("Mail invalido. No hay puntos.")
+					document.frmContacto.txtMail.focus()
+					bandera=1
+				}
+				if(punto>2)
+				{
+					alert("Mail invalido. Hay mas de dos puntos.")
+					document.frmContacto.txtMail.focus()
+					bandera=1
+				}
+			}			
+			else
+			{
+				alert("Mail no ingresado.")
+				document.frmContacto.txtMail.focus()
+				bandera=1
+			}
+		}
+		
+		function verFecha()
+		{
+			slctDia=document.frmContacto.dia.value
+			slctMes=document.frmContacto.mes.value
+			if(slctDia>28 && slctMes==2)
+			{
+				alert("Fecha invalida. El mes seleccionado solo tiene 28 dias.")
+				document.frmContacto.dia.focus()
+				bandera=1
+			}
+			if((slctMes==4 || slctMes==6 || slctMes==9 || slctMes==11) && slctDia>30)
+			{
+				alert("Fecha invalida. El mes selecionado solo tiene 30 dias")
+				document.frmContacto.dia.focus()
+				bandera=1
+			}
+		}
+		
+		function validaciones()
+		{
+			valNombre()
+			if(bandera==0)
+			{
+				valApellido()
+				if(bandera==0)
+				{
+					verMail()
+					if(bandera==0)
+					{
+						verFecha()
+						if(bandera==0)
+						{
+							document.frmContacto.submit()
+						}
+						else
+						{
+							//alert("La bardeaste con la fecha.")
+						}
+					}
+					else
+					{
+						//alert("La bardeaste con el mail.")
+						return
+					}
+				}
+				else
+				{
+					//alert("La bardeaste con el apellido.")
+					return
+				}
+			}
+			else
+			{
+				//alert("La bardeaste con el nombre.")
+				return
+			}
+		}
+		</script>
+	</head>
+	<body background="Imagenes\postbg.jpg">
+		<table border="0" width="100%" height="100%"  name="tablita">
+			<tr>
+				<td> 
+					<img src="Imagenes\postbg.jpg" width="100%">
+				</td>
+				<td width="900px" height="100%" align="center">
+					<table width="100%" height="100%" border="0">
+						<tr height="10%">
+							<td>
+								<map name="mapa2">
+									<area alt="Inicio"               shape="square" coords="3,270,125,223"   href="Index.html">
+									<area alt="The Witch's House"    shape="square" coords="126,270,250,223" href="twh.html">
+									<area alt="The Witch's House 2 " shape="square" coords="257,270,380,223" href="TWH2.html">
+									<area alt="Historia"             shape="square" coords="386,270,511,223" href="historia.html">
+									<area alt="Guía"                 shape="square" coords="513,270,640,223" href="guia.html">
+									<area alt="Descarga"             shape="square" coords="642,270,764,223" href="descarga.html">
+									<area alt="Contacto"             shape="square" coords="772,270,895,223" href="Formulario.html">
+								</map>
+								<img src="Imagenes\intentodebannerfinal.png" usemap="#mapa2">
+							</td>
+						</tr>
+						<tr height="80%" name="trTablita">
+							<td  background="Imagenes\imagendefondo.jpg" align="center" name="tdTablita">
+								<img src="Imagenes\Contacto.png" height="200px">								
+								<form name="frmContacto" method="post" action="mailto:fethe_park@hotmail.com.ar">
+									Nombre:
+									<input type="text" name="txtNombre" onKeyUp="nomMayus()" onblur="valNombre()">
+									<br><br>
+									Apellido: 
+									<input type="text" name="txtApellido" onKeyUp="apeMayus()" onblur="valApellido()">
+									<br><br>
+									G&eacute;nero: 
+									<input name="radGenero" type="radio" value="Varon" checked>Masculino
+									<input name="radGenero" type="radio" value="Mujer">Femenino
+									<br><br>
+									Localidad:		
+									<select name="menu">
+										<option value="1" selected="selected">Rosario</option>
+										<option value="2">F&uacute;nes</option>
+										<option value="3">Rold&aacute;n</option>
+										<option value="4">Otro</option>")
+									</select>
+									<br><br>
+									Fecha:
+									<select name="dia" onblur="verFecha()">
+										<script>
+											for(i=1; i<=31; i++)
+											{
+											document.write("<option>"+i+"</option>")
+											}
+										</script>
+									</select>											
+									<select name="mes" onblur="verFecha()">
+										<script>
+											for(z=1; z<=12; z++)
+											{
+											document.write("<option>"+z+"</option>")
+											}
+										</script>
+									</select>
+									<select name="año">
+										<script>
+											for(i=1920; i<=2013; i++)
+											{
+											document.write("<option>"+i+"</option>")
+											}
+										</script>
+									</select>
+									<br><br>
+									Email:
+									<input type="text" name="txtMail" onblur="verMail()">
+									<br><br>
+									Telefono:
+									<input type="text" value="Opcional" >
+									<br><br>
+									Celular:
+									<input type="text" value="Opcional">
+									<br><br>
+									Estudios cursados:
+									<select name="estudios">
+										<option value="1">Primario</option>
+										<option value="2">Secundario</option>
+										<option value="3">Terciario</option>
+										<option value="4">Universitario</option>
+										<option value="5">Posgrado</option>
+									</select>
+									Completo: <input type="checkbox" name="completo" value="estdiosCompletos">
+									<br><br>
+									Observaciones:
+									<br>
+									<textarea name="texto" rows="4" cols="40"></textarea>
+									<br><br>
+									<input type="button" value="Enviar" onclick="validaciones()">
+									<input name="btnResetear" type="reset" value="Borrar"><br>
+								</form>
+							</td>
+						</tr>
+						<tr height="10%"> 
+							<td>
+								<map name="mapa1">
+									<area alt="Inicio"               shape="square" coords="17,7,113,45"  href="Index.html">
+									<area alt="The Witch's House"    shape="square" coords="145,7,239,45" href="twh.html">
+									<area alt="The Witch's House 2 " shape="square" coords="266,7,379,45" href="TWH2.html">
+									<area alt="Historia"             shape="square" coords="386,7,515,45" href="historia.html">
+									<area alt="Guía"                 shape="square" coords="530,7,620,45" href="guia.html">
+									<area alt="Descarga"             shape="square" coords="636,7,764,45" href="descarga.html">
+									<area alt="Contacto"             shape="square" coords="766,7,895,45" href="Formulario.html">
+								</map>
+								<img src="Imagenes\123456.png" usemap="#mapa1">
+							</td>
+						</tr>
+					</table>
+				</td>
+				<td>
+					<img src="Imagenes\postbg.jpg" width="100%">
+				</td>
+			<tr>
+		</table>
+	</body>
+</html>

@@ -1,0 +1,27 @@
+body
+	{
+	color: #cccccc;
+	}	
+table
+	{
+	border-collapse: collapse;
+	border: none;
+	}
+td
+	{
+	padding: 0;
+	}
+
+h2 	
+	{
+	color:red ; 
+	}
+h3	
+	{
+	text-align: center;
+	}
+p 	
+	{   
+  	text-indent: 25px;
+	text-align: justify;
+	}
